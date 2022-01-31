@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{5446AB5A-7A2B-1A2B-2E88-FA6278922A78}</ProjectGuid>
+    <ProjectGuid>{612D51A5-76B7-B6AD-6D2E-9AA612A8574B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -54,10 +54,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\BodyScript.cs" />
-    <Compile Include="Assets\Scripts\NodePos.cs" />
+    <Compile Include="Assets\Scripts\SpawnScript.cs" />
     <Compile Include="Assets\Scripts\MindScript.cs" />
     <Compile Include="Assets\Scripts\EnemyScript.cs" />
-    <Compile Include="Assets\Scripts\SpawnScript.cs" />
+    <Compile Include="Assets\Scripts\NodePos.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

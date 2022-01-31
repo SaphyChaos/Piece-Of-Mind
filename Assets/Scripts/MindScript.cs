@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+//using UnityEditor.Animations;
 
 public class MindScript : MonoBehaviour
 {
@@ -10,9 +11,12 @@ public class MindScript : MonoBehaviour
     public bool Stuned;
     public bool Immune;
     public float StunTimer;
+    public bool m_FacingRight = false;
+
+    //public Animator MyAnimator;
     public void MoveBodyLeft()
     {
-        if(MyBodyScript.xpos == 0)
+        if (MyBodyScript.xpos == 0)
         {
             MyBodyScript.WallHit();
         }
@@ -21,7 +25,7 @@ public class MindScript : MonoBehaviour
             var Nodes = GameObject.FindGameObjectsWithTag("Node");
             foreach (var node in Nodes)
             {
-                if((node.GetComponent<NodePos>().xpos == MyBodyScript.xpos - 1) && (node.GetComponent<NodePos>().ypos == MyBodyScript.ypos))
+                if ((node.GetComponent<NodePos>().xpos == MyBodyScript.xpos - 1) && (node.GetComponent<NodePos>().ypos == MyBodyScript.ypos))
                 {
                     MyBodyScript.MoveMan(node, node.GetComponent<NodePos>().xpos, node.GetComponent<NodePos>().ypos);
                     return;
@@ -88,25 +92,25 @@ public class MindScript : MonoBehaviour
     }
     public void Stun()
     {
-        if(!Immune)
+        if (!Immune)
             Stuned = true;
     }
     public void Collide(string text)
     {
         print(text);
-        if(text == "Left")
+        if (text == "Left")
         {
             MoveBodyLeft();
         }
-        else if(text == "Right")
+        else if (text == "Right")
         {
             MoveBodyRight();
         }
-        else if(text == "Up")
+        else if (text == "Up")
         {
             MoveBodyUp();
         }
-        else if(text == "Down")
+        else if (text == "Down")
         {
             MoveBodyDown();
         }
@@ -173,11 +177,28 @@ public class MindScript : MonoBehaviour
         {
             Vector3 move = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
             _controller.Move(move * Time.deltaTime * 600f);
+            if (Input.GetAxis("Horizontal") < 0)
+            {
+                m_FacingRight = false;
+                Brain.transform.localRotation = Quaternion.Euler(0, 180, 0);
+                //MyAnimator.Play(("Base Layer.TurnLeft"), 0, 0);
+            }
+            else if (Input.GetAxis("Horizontal") > 0)
+            {
+                m_FacingRight = true;
+                Brain.transform.localRotation = Quaternion.Euler(0, 0, 0);
+                ///MyAnimator.Play(("Base Layer.TurnRight"), 0, 0);
+            }
+            else
+            {
+                Brain.transform.localRotation = Quaternion.Euler(0, 0, 0);
+                //MyAnimator.Play(("Base Layer.StayStill"), 0, 0);
+            }
         }
         else
         {
             StunTimer += Time.deltaTime;
-            if(StunTimer >= 1.0f)
+            if (StunTimer >= 1.0f)
             {
                 Immune = true;
                 Stuned = false;
