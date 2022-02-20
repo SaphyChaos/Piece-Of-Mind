@@ -1,18 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BodyScript : MonoBehaviour
 {
     public int xpos;
     public int ypos;
-    public int HP;
+    private int HP;
     public GameObject Body;
     public GameObject GameOverScreen;
     public GameObject WinScreen;
+    public Slider healthBar;
     public void DamageBody(int damage)
     {
-        HP -= damage;
+        
+        healthBar.value -= damage;
+        HP = (int)healthBar.value;
         if(HP <= 0)
         {
             GameOverScreen.SetActive(true); ;
@@ -23,7 +27,7 @@ public class BodyScript : MonoBehaviour
         //1 0, 3 1
         if((newx == 1 && newy == 0) || (newx == 3) && (newy == 1))
         {
-            DamageBody(3);
+            DamageBody(1);
             return;
         }
         if(newx == 5 && newy == 0)
@@ -37,6 +41,7 @@ public class BodyScript : MonoBehaviour
     public void WallHit()
     {
         DamageBody(1);
+
     }
     // Start is called before the first frame update
     void Start()

@@ -7,6 +7,7 @@ public class MindScript : MonoBehaviour
 {
     public BodyScript MyBodyScript;
     public GameObject Brain;
+    public GameObject stunStatus;    
     private CharacterController _controller;
     public bool Stuned;
     public bool Immune;
@@ -123,6 +124,7 @@ public class MindScript : MonoBehaviour
     void Start()
     {
         _controller = Brain.GetComponent<CharacterController>();
+        stunStatus.SetActive(false);
     }
 
     // Update is called once per frame
@@ -198,11 +200,13 @@ public class MindScript : MonoBehaviour
         else
         {
             StunTimer += Time.deltaTime;
+            stunStatus.SetActive(true);
             if (StunTimer >= 1.0f)
             {
                 Immune = true;
                 Stuned = false;
                 StunTimer = 0f;
+                stunStatus.SetActive(false);
             }
         }
         if (Immune)
